@@ -35,9 +35,9 @@ const selectPokemon = async (id) => {
     if (!cachedPokemon[id]){
         const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
         const res = await fetch(url);
-        const pokemon = await res.json();
+        const pokeman = await res.json();
         cachedPokemon[id] = pokeman;
-        displayPokemonPopup(pokemon);
+        displayPokemonPopup(pokeman);
     } else {
         displayPokemonPopup(cachedPokemon[id]);
     }
