@@ -1,6 +1,18 @@
 const pokedex = document.getElementById("pokedex");
 
-const fetchPokemon = () => {
+const fetchPokemon = async () => {
+    const url = `https://pokeapi.co/api/v2/pokemon?limit=150`;
+    const res = wait fetch(url);
+    const data = await res.json();
+
+    const pokemon = data.results.map((data, index) => ({
+        name: data.name,
+        id: index + 1,
+        img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
+    }));
+    displayPokemon(pokemon);
+
+    /*
     const promises = [];
     for(let i = 1; i <= 150; i++){
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
@@ -16,6 +28,7 @@ const fetchPokemon = () => {
         }));
         displayPokemon(pokemon);
     });
+    */
 }
 
 
@@ -28,7 +41,6 @@ const displayPokemon = pokemon => {
             `<li class="card">
             <img class="card-image" src="${pokeman.image}"/>
             <h2 class="card-title">${pokeman.id}. ${pokeman.name}</h2>
-            <p class="card-subtitle">Type: ${pokeman.type}</p>
         </li>`
         )
         .join("");
