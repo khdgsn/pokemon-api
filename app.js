@@ -1,5 +1,3 @@
-//my code
-
 const pokedex = document.getElementById('pokedex');
 const cachedPokemon = {};
 
