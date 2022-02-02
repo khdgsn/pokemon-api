@@ -50,7 +50,7 @@ const closePopup = () => {
 
 const displayPokemonPopup = (pokeman) => {
   console.log(pokeman);
-  const type = pokemon.types.map((type) => type.type.name).join(", ");
+  const type = pokeman.types.map((type) => type.type.name).join(", ");
   const htmlString = ` <div class="popup"> <button id="closeBtn" onclick="closePopup()">Close</button> 
                        <div class="card"> <img class="card-image" src="${pokeman.sprites["front_default"]}"/> 
                        <h2 class="card-title">${pokeman.name}</h2> 
