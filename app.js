@@ -1,13 +1,10 @@
-const cachedPokemon = {};
-cachedPokemon[id] = pokeman;
-
 const pokedex = document.getElementById("pokedex");
+const cachedPokemon = {};
 
 const fetchPokemon = async () => {
   const url = `https://pokeapi.co/api/v2/pokemon?limit=150`;
   const res = await fetch(url);
   const data = await res.json();
-
   const pokemon = data.results.map((data, index) => ({
     name: data.name,
     id: index + 1,
@@ -18,11 +15,29 @@ const fetchPokemon = async () => {
   displayPokemon(pokemon);
 };
 
+const displayPokemon = (pokemon) => {
+    const pokemonHTMLString = pokemon
+        .map(
+            (pokeman) =>
+                `
+    <li class="card" onclick="selectPokemon(${pokeman.id})">
+        <img class="card-image" src="${pokeman.image}"/>
+        <h2 class="card-title">${pokeman.id}. ${pokeman.name}</h2>
+        </a>
+    </li>
+        `
+        )
+        .join('');
+    pokedex.innerHTML = pokemonHTMLString;
+};
+
+
 const selectPokemon = async (id) => {
-    if (!cachedPokemon[i]){
+    if (!cachedPokemon[id]){
         const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
         const res = await fetch(url);
         const pokemon = await res.json();
+        cachedPokemon[id] = pokeman;
         displayPokemonPopup(pokemon);
     } else {
         displayPokemonPopup(cachedPokemon[id]);
@@ -34,7 +49,7 @@ const closePopup = () => {
     popup.parentElement.removeChild(popup);
 }
 
-const displayPokemon = (pokeman) => {
+const displayPokemonPopup = (pokeman) => {
   console.log(pokeman);
   const type = pokemon.types.map((type) => type.type.name).join(", ");
   const htmlString = ` <div class="popup"> <button id="closeBtn" onclick="closePopup()">Close</button> 
