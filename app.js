@@ -1,3 +1,6 @@
+const cachedPokemon = {};
+cachedPokemon[id] = pokeman;
+
 const pokedex = document.getElementById("pokedex");
 
 const fetchPokemon = async () => {
@@ -13,31 +16,17 @@ const fetchPokemon = async () => {
     }.png`,
   }));
   displayPokemon(pokemon);
-
-  /*
-    const promises = [];
-    for(let i = 1; i <= 150; i++){
-        const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-        promises.push(fetch(url).then(res => res.json()));
-    }
-    
-    Promise.all(promises).then(results => {
-        const pokemon = results.map(data => ({
-            name: data.name,
-            id: data.id,
-            image: data.sprites["front_default"],
-            type: data.types.map(type => type.type.name).join(", "),
-        }));
-        displayPokemon(pokemon);
-    });
-    */
 };
 
-const selectPokemon = async (id) => {
-  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-  const res = await fetch(url);
-  const pokemon = await res.json();
-  displayPokemonPopup(pokemon);
+const selectPokemon = async id => {
+    if (!cachedPokemon[i]){
+        const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+        const res = await fetch(url);
+        const pokemon = await res.json();
+        displayPokemonPopup(pokemon);
+    } else {
+        displayPokemonPopup(cachedPokemon[id]);
+    }
 };
 
 const closePopup = () => {
